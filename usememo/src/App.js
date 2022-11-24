@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Memoization from "./Memoization";
+import ReactMemo from "./ReactMemo";
+import UseMemo from "./UseMemo";
 
 function App() {
   const [dummy, setDummy] = useState('');
@@ -11,7 +12,8 @@ function App() {
   return (
     <>
       <input name="dummyInput" value={dummy} onChange={onChange} />
-      <Memoization birthYear={"1991"} birthMonth={"07"} birthDay={"23"} />
+      <UseMemo birthYear={"1991"} birthMonth={"07"} birthDay={"23"} />
+      {/* <ReactMemo birthYear={"1991"} birthMonth={"07"} birthDay={"23"} /> */}
     </>
   );
 }

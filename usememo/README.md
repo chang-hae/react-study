@@ -1,27 +1,32 @@
-## useMemo 사용법 및 사용이유에 대해서 정리
+# React.memo 와 useMemo 사용법 정리
 
-### 1. useMemo 사용법
+## 1. React.memo
+<https://ko.reactjs.org/docs/react-api.html#reactmemo>
 ```
-const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+const MyComponent = React.memo(function MyComponent(props) {
+  /* props를 사용하여 렌더링 */
+});
 ```
-자신의 컴포넌트가 리렌더링 됨
 
-### 2. 전달받은 props 값이 업데이트 된 경우
-정확한 테스트를 위해 React.memo 를 사용하여 props 변경 감지만 작동하도록 세팅하였음
+### 1) React.memo 는 HOC(Higher Order Component, 고차함수) 이다.
+<https://ko.reactjs.org/docs/higher-order-components.html>  
+고차 컴포넌트는 컴포넌트를 인자로 받아 새로운 컴포넌트를 반환하는 함수이다.
 
-### 3. 부모 컴포넌트가 렌더링되는 경우
-부모로부터 props 를 받지 않는 Sticker 컴포넌트를 만들어 테스트함
+### 2) React.memo 를 사용하면 컴포넌트의 불필요한 리렌더링을 방지할 수 있다.
+부모로부터 전달받은 'props' 가 동일하다면 부모 컴포넌트가 리렌더링 되어도 자신의 컴포넌트를 리렌더링하지 않는다.
 
 <br>
 
-## 혼동되었던 부분  
-  
-리액트 컴포넌트 리렌더링 플로우와 *useEffect* 의 작동 플로우를 혼합해서 생각한 것이 혼동의 원인이었음
+## 2. useMemo
+<https://ko.reactjs.org/docs/hooks-reference.html#usememo>
+```
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```
 
-사실 이 둘의 플로우는 별개임
+### 1) useMemo 는 함수형 컴포넌트에서 사용하는 hook 이다.
+<https://ko.reactjs.org/docs/hooks-intro.html>  
 
-리액트 컴포넌트 리렌더링은 개발자의 영역이 아니라 리액트 라이브러리에서 자동으로 해주는 부분
+### 2) useMemo 는 함수를 메모이제이션한다.
+`React.memo` 가 컴포넌트를 메모이제이션했다면, `useMemo` 는 함수를 메모이제이션한다.
 
-*useEffect* 는 개발자가 자신의 의도에 맞게 해당 컴포넌트의 렌더링 타이밍을 캐치하기 위하여 사용하는 구문임
-
-`리액트 컴포넌트 리렌더링`을 시냇물에 흐르는 송사리에 비유하자면 `useEffect`는 송사리를 뜰채로 건져올리는 행위에 비유할 수 있을 것 같음.
+즉, 부모 컴포넌트가 리렌더링되면 자식 컴포넌트의 useMemo 함수는 메모이제이션되어 재실행되지 않지만 자식 컴포넌트 자체는 리렌더링된다.
