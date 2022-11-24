@@ -5,22 +5,19 @@ import TimerClock from "./TimerClock";
 
 function Timer() {
     console.log('timer rendering');
-    const [isRunning, setIsRunning] = useState(false);
-    const [minutes, seconds, minuteBar, setMinuteBar, start, end] = useTimer(10);
+    const [minutes, seconds, minuteBar, handleMiniteBar, isRunning, start, end] = useTimer(10);
 
     const handleStart = () => {
-        setIsRunning(true);
         start();
     }
 
     const handleEnd = () => {
-        setIsRunning(false);
         end();
     }
 
     const handleSliderChange = (event, newValue) => {
         if (typeof newValue === 'number') {
-            setMinuteBar(newValue)
+            handleMiniteBar(newValue)
         }
     };
 
