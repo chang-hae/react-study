@@ -6,28 +6,35 @@ import TimerClock from "./TimerClock";
 function Timer() {
     console.log('timer rendering');
     const [isRunning, setIsRunning] = useState(false);
-    const [minutes, seconds, minuteBar, setMinuteBar, startTimer, endTimer] = useTimer(10);
+    const [minutes, seconds, minuteBar, setMinuteBar, start, end] = useTimer(10);
 
-    const handleChange = (event, newValue) => {
+    const handleStart = () => {
+        setIsRunning(true);
+        start();
+    }
+
+    const handleEnd = () => {
+        setIsRunning(false);
+        end();
+    }
+
+    const handleSliderChange = (event, newValue) => {
         if (typeof newValue === 'number') {
             setMinuteBar(newValue)
         }
     };
 
-    console.log(minutes);
-    console.log(seconds);
-
     return (
         <>
-            <button onClick={startTimer}>시작</button>
-            <button onClick={endTimer}>종료</button>
+            <button onClick={handleStart} disabled={isRunning}>시작</button>
+            <button onClick={handleEnd} disabled={!isRunning}>종료</button>
             <TimerClock minutes={minutes} seconds={seconds} />
             <Slider
                 value={minuteBar}
                 min={0}
                 max={60}
                 step={1}
-                onChange={handleChange}
+                onChange={handleSliderChange}
                 aria-label="Disabled slider"
             />
         </>

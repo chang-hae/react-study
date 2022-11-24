@@ -6,16 +6,16 @@ const useTimer = (initialValue) => {
     const [minuteBar, setMinuteBar] = useState(initialValue);
     const [totalSec, setTotalSec] = useState(initialValue * 60);
 
-    const startTimer = () => {
+    const start = () => {
         intervalId.current = setInterval(() => {
-            console.log('tictoc...');
             // setTotalSec(totalSec - 1); 로 하니까 안됨
             setTotalSec(totalSec => totalSec - 1);
         }, 1000);
     }
 
-    const endTimer = () => {
-        console.log('endTimer');
+    const end = () => {
+        setMinuteBar(initialValue);
+        setTotalSec(initialValue * 60);
         clearInterval(intervalId.current)
     }
 
@@ -23,7 +23,9 @@ const useTimer = (initialValue) => {
         return () => clearInterval(intervalId.current);
     }, []);
     
-    return [Math.floor(totalSec / 60), Math.floor(totalSec % 60), minuteBar, setMinuteBar, startTimer, endTimer];
+    return [Math.floor(totalSec / 60), Math.floor(totalSec % 60), 
+            minuteBar, setMinuteBar, 
+            start, end];
 }
 
 export { useTimer };
