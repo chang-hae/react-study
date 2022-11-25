@@ -9,7 +9,6 @@ const Counter = () => {
     }, 1000);
 
     return <h1>{count}</h1>;
-  }
-  
-  export default Counter;
-  
+}
+
+export default Counter;
