@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
 const useTimer = (initialMinute) => {
+    console.log('useTimer');
     const intervalId = useRef(0);
+    // const [intervalId, setIntervalId] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const [isFinish, setIsFinish] = useState(false);
     const [minuteBar, setMinuteBar] = useState(initialMinute);
@@ -10,6 +12,7 @@ const useTimer = (initialMinute) => {
     const start = () => {
         setIsRunning(true);
         setIsFinish(false);
+        
         intervalId.current = setInterval(() => {
             setTotalSec(sec => {
                 if (sec <= 1) {
@@ -19,6 +22,15 @@ const useTimer = (initialMinute) => {
                 return sec - 1;
             });
         }, 1000);
+        // setIntervalId(setInterval(() => {
+        //     setTotalSec(sec => {
+        //         if (sec <= 1) {
+        //             setIsFinish(true);
+        //             clearInterval(intervalId.current);
+        //         }
+        //         return sec - 1;
+        //     });
+        // }, 1000));
     }
 
     const end = () => {
@@ -26,7 +38,8 @@ const useTimer = (initialMinute) => {
         setIsFinish(false);
         setMinuteBar(initialMinute);
         setTotalSec(initialMinute * 60);
-        clearInterval(intervalId.current)
+        clearInterval(intervalId.current);
+        // clearInterval(intervalId);
     }
 
     const handleMinuteBar = (newMinute) => {
@@ -36,6 +49,7 @@ const useTimer = (initialMinute) => {
 
     useEffect(() => {
         return () => clearInterval(intervalId.current);
+        // return () => clearInterval(intervalId);
     }, []);
     
     return [totalSec, minuteBar, handleMinuteBar, isRunning, isFinish, start, end];

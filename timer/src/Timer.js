@@ -5,9 +5,9 @@ import useTimer from "./hooks/useTimer";
 function Timer() {
     const [totalSec, minuteBar, handleMinuteBar, isRunning, isFinish, start, end] = useTimer(1);
 
-    const handleSliderChange = (event, newValue) => {
-        if (typeof newValue === 'number') {
-            handleMinuteBar(newValue)
+    const handleSliderChange = (event, newMinute) => {
+        if (typeof newMinute === 'number') {
+            handleMinuteBar(newMinute)
         }
     };
 
@@ -18,9 +18,9 @@ function Timer() {
             <h1>{Math.floor(totalSec / 60)}분 {Math.floor(totalSec % 60)}초</h1>
             <Slider
                 value={minuteBar}
+                step={1}
                 min={0}
                 max={60}
-                step={1}
                 onChange={handleSliderChange}
                 aria-label="Disabled slider"
             />
