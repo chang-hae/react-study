@@ -1,9 +1,10 @@
+import Counter from "./Counter";
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <h1>useInterval example</h1>
-    </div>
+    <>
+      <Counter />
+    </>
   );
 }
 
