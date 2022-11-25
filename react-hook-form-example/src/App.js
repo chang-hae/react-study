@@ -1,9 +1,14 @@
+import BasicHookForm from "./BasicHookForm";
+import ValidHookForm from "./ValidHookForm";
 
 function App() {
   return (
-    <div>
-      <h1>react-hook-form-example</h1>
-    </div>
+    <>
+      {/* <h1>BasicHookForm</h1>
+      <BasicHookForm /> */}
+      <h1>ValidHookForm</h1>
+      <ValidHookForm />
+    </>
   );
 }
 

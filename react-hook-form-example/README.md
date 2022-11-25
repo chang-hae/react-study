@@ -1,11 +1,9 @@
-# React.memo 와 useMemo 사용법 정리
+# react-hook-form 사용해보기
 
-## 1. React.memo
-<https://ko.reactjs.org/docs/react-api.html#reactmemo>
+## 1. react-hook-form 설치
+<https://react-hook-form.com/get-started/>
 ```
-const MyComponent = React.memo(function MyComponent(props) {
-  /* props를 사용하여 렌더링 */
-});
+yarn add react-hook-form
 ```
 
 ### 1) React.memo 는 HOC(Higher Order Component, 고차함수) 이다.
