@@ -39,20 +39,10 @@ const refContainer = useRef(initialValue);
 `useRef` 는 크게 두 가지 기능을 수행한다.
 하나는 리액트에서 DOM 에 접근하기 위한 기능이고 다른 하나는 컴포넌트가 언마운트될 때까지 그 값이 유지되는 기능이다.
 
+여기서는 컴포넌트가 언마운트 될 때까지 값을 유지하기 위해 사용한다.
 
+### 4) React- useInterval(사용자정의)
+<https://overreacted.io/making-setinterval-declarative-with-react-hooks/>  
+<https://velog.io/@jakeseo_me/%EB%B2%88%EC%97%AD-%EB%A6%AC%EC%95%A1%ED%8A%B8-%ED%9B%85%EC%8A%A4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%97%90%EC%84%9C-setInterval-%EC%82%AC%EC%9A%A9-%EC%8B%9C%EC%9D%98-%EB%AC%B8%EC%A0%9C%EC%A0%90>  
 
-<br>
-
-## 2. useMemo
-<https://ko.reactjs.org/docs/hooks-reference.html#usememo>
-```
-const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
-```
-
-### 1) useMemo 는 함수형 컴포넌트에서 사용하는 hook 이다.
-<https://ko.reactjs.org/docs/hooks-intro.html>  
-
-### 2) useMemo 는 함수를 메모이제이션한다.
-`React.memo` 가 컴포넌트를 메모이제이션했다면, `useMemo` 는 함수를 메모이제이션한다.
-
-즉, 부모 컴포넌트가 리렌더링되면 자식 컴포넌트의 *useMemo* 함수는 메모이제이션되어 재실행되지 않지만 자식 컴포넌트 자체는 리렌더링된다.
+다른 스터디 프로젝트인 'useinterval' 을 참고한다.
