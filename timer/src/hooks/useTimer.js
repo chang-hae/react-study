@@ -1,39 +1,44 @@
 import { useEffect, useRef, useState } from "react";
 
-const useTimer = (initialValue) => {
-    console.log('useTimer rendering');
+const useTimer = (initialMinute) => {
     const intervalId = useRef(0);
     const [isRunning, setIsRunning] = useState(false);
-    const [minuteBar, setMinuteBar] = useState(initialValue);
-    const [totalSec, setTotalSec] = useState(initialValue * 60);
+    const [isFinish, setIsFinish] = useState(false);
+    const [minuteBar, setMinuteBar] = useState(initialMinute);
+    const [totalSec, setTotalSec] = useState(initialMinute * 60);
 
     const start = () => {
         setIsRunning(true);
+        setIsFinish(false);
         intervalId.current = setInterval(() => {
-            // setTotalSec(totalSec - 1); 로 하니까 안됨
-            setTotalSec(totalSec => totalSec - 1);
+            setTotalSec(sec => {
+                if (sec <= 1) {
+                    setIsFinish(true);
+                    clearInterval(intervalId.current);
+                }
+                return sec - 1;
+            });
         }, 1000);
     }
 
     const end = () => {
         setIsRunning(false);
-        setMinuteBar(initialValue);
-        setTotalSec(initialValue * 60);
+        setIsFinish(false);
+        setMinuteBar(initialMinute);
+        setTotalSec(initialMinute * 60);
         clearInterval(intervalId.current)
     }
 
-    const handleMiniteBar = (newValue) => {
-        setTotalSec(newValue * 60);
-        setMinuteBar(newValue);
+    const handleMinuteBar = (newMinute) => {
+        setTotalSec(newMinute * 60);
+        setMinuteBar(newMinute);
     }
 
     useEffect(() => {
         return () => clearInterval(intervalId.current);
     }, []);
     
-    return [Math.floor(totalSec / 60), Math.floor(totalSec % 60), 
-            minuteBar, handleMiniteBar, 
-            isRunning, start, end];
+    return [totalSec, minuteBar, handleMinuteBar, isRunning, isFinish, start, end];
 }
 
-export { useTimer };
+export default useTimer;

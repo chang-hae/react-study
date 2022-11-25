@@ -1,31 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider from '@mui/material/Slider';
-import { useTimer } from "./hooks/useTimer";
-import TimerClock from "./TimerClock";
+import useTimer from "./hooks/useTimer";
 
 function Timer() {
-    console.log('timer rendering');
-    const [minutes, seconds, minuteBar, handleMiniteBar, isRunning, start, end] = useTimer(10);
-
-    const handleStart = () => {
-        start();
-    }
-
-    const handleEnd = () => {
-        end();
-    }
+    const [totalSec, minuteBar, handleMinuteBar, isRunning, isFinish, start, end] = useTimer(1);
 
     const handleSliderChange = (event, newValue) => {
         if (typeof newValue === 'number') {
-            handleMiniteBar(newValue)
+            handleMinuteBar(newValue)
         }
     };
 
     return (
         <>
-            <button onClick={handleStart} disabled={isRunning}>시작</button>
-            <button onClick={handleEnd} disabled={!isRunning}>종료</button>
-            <TimerClock minutes={minutes} seconds={seconds} />
+            <button onClick={() => { start(); }} disabled={isRunning}>시작</button>
+            <button onClick={() => { end(); }} disabled={!isRunning}>종료</button>            
+            <h1>{Math.floor(totalSec / 60)}분 {Math.floor(totalSec % 60)}초</h1>
             <Slider
                 value={minuteBar}
                 min={0}
@@ -34,6 +24,7 @@ function Timer() {
                 onChange={handleSliderChange}
                 aria-label="Disabled slider"
             />
+            { isFinish ? <h3>타이머 종료</h3> : null }
         </>
     );
 }
