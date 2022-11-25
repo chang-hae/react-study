@@ -15,16 +15,5 @@ yarn add react-hook-form
 
 <br>
 
-## 2. useMemo
-<https://ko.reactjs.org/docs/hooks-reference.html#usememo>
-```
-const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
-```
-
-### 1) useMemo 는 함수형 컴포넌트에서 사용하는 hook 이다.
-<https://ko.reactjs.org/docs/hooks-intro.html>  
-
-### 2) useMemo 는 함수를 메모이제이션한다.
-`React.memo` 가 컴포넌트를 메모이제이션했다면, `useMemo` 는 함수를 메모이제이션한다.
-
-즉, 부모 컴포넌트가 리렌더링되면 자식 컴포넌트의 *useMemo* 함수는 메모이제이션되어 재실행되지 않지만 자식 컴포넌트 자체는 리렌더링된다.
+## 2. 참고 URL
+<https://velog.io/@sweetpumpkin/React-hook-form%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-Form-Validation>
