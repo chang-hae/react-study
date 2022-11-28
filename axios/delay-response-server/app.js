@@ -14,7 +14,7 @@ app.get('/hello', (req, res) => {
         res.status(200);
         res.send('Ok');
     }
-})
+});
 
 app.get('/delay/:term', (req, res) => {
     setTimeout(() => {

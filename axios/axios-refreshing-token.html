@@ -5,52 +5,39 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <script>
-    const myAxios = axios.create();
-
     // let token = Date.now() + 10000000;
     let token = Date.now() - 10000000;
     let isTokenRefreshing = false;
     let refreshSubscribers = [];
 
     const onTokenRefreshed = (accessToken) => {
-        const size = refreshSubscribers.length;
-        console.log(size);
-        for (let i = 0; i < size; i++) {
-            const originalRequest = refreshSubscribers.pop();
-            originalRequest(accessToken);
-        }
+        refreshSubscribers.map((callback) => callback(accessToken));
+        refreshSubscribers = [];
     };
 
     const addRefreshSubscriber = (callback) => {
         refreshSubscribers.push(callback);
     };
 
-    myAxios.interceptors.response.use(
-        (response) => {
-            return response;
-        },
+    axios.interceptors.response.use(
+        (response) => response,
         async (error) => {
-            const {
-                config,
-                response: { status },
-            } = error;
+            const { config, response: { status }, } = error;
             const originalRequest = config;
             if (status === 401) {
                 const retryOriginalRequest = new Promise((resolve) => {
                     addRefreshSubscriber((token) => {
                         originalRequest.headers.Authorization = "Bearer " + token;
-                        resolve(myAxios(originalRequest));
+                        resolve(axios(originalRequest));
                     });
                 });
 
                 if (!isTokenRefreshing) {
                     isTokenRefreshing = true;
-                    await myAxios.get('http://localhost:3000/delay/5000');
+                    await axios.get('http://localhost:3000/delay/5000');
                     isTokenRefreshing = false;
-                    onTokenRefreshed(Date.now() + 100);
-                    return retryOriginalRequest;
+                    onTokenRefreshed(Date.now() + 10000000);
                 }
-
                 return retryOriginalRequest;
             }
             return Promise.reject(error);
@@ -58,7 +45,7 @@
     )
 
     const helloApi = async () => {
-        const response = await myAxios.get('http://localhost:3000/hello', {
+        const response = await axios.get('http://localhost:3000/hello', {
             headers: {
                 Authorization: "Bearer " + token,
             }
