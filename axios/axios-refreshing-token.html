@@ -45,7 +45,7 @@
 
                 if (!isTokenRefreshing) {
                     isTokenRefreshing = true;
-                    await myAxios.get('http://localhost:3000/delay');
+                    await myAxios.get('http://localhost:3000/delay/5000');
                     isTokenRefreshing = false;
                     onTokenRefreshed(Date.now() + 100);
                     return retryOriginalRequest;

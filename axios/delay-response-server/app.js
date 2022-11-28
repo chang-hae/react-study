@@ -6,9 +6,7 @@ const port = 3000;
 app.use(cors());
 
 app.get('/hello', (req, res) => {
-    console.log(req.originalUrl);
     const token = req.headers.authorization.split(' ')[1];
-    console.log(token);
     if(Number(token) < Date.now()) {
         res.status(401);
         res.send("Unauthorized");
@@ -18,12 +16,11 @@ app.get('/hello', (req, res) => {
     }
 })
 
-app.get('/delay', (req, res) => {
-    console.log(req.originalUrl);
+app.get('/delay/:term', (req, res) => {
     setTimeout(() => {
         res.status(200);
-        res.send("Ok");
-    }, 5000);
+        res.send(req.params.term);
+    }, Number(req.params.term));
 });
 
 app.listen(port, () => {
