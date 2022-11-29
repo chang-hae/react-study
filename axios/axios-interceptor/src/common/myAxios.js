@@ -32,9 +32,9 @@ myAxios.interceptors.response.use(
 
             if (!isTokenRefreshing) {
                 isTokenRefreshing = true;
-                await myAxios.get('/delay/5000');
+                const response = await myAxios.get('/refresh-token');
                 isTokenRefreshing = false;
-                onTokenRefreshed(Date.now() + 10000000);
+                onTokenRefreshed(response.data.newToken);
             }
             
             return retryOriginalRequest;

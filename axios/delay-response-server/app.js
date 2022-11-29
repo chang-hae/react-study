@@ -16,11 +16,11 @@ app.get('/hello', (req, res) => {
     }
 });
 
-app.get('/delay/:term', (req, res) => {
+app.get('/refresh-token', (req, res) => {
     setTimeout(() => {
         res.status(200);
-        res.send(req.params.term);
-    }, Number(req.params.term));
+        res.send({newToken: String(Date.now() + 10000000)});
+    }, 5000);
 });
 
 app.listen(port, () => {
