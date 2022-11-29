@@ -1,24 +1,17 @@
-## 리액트 컴포넌트 리렌더링 케이스 정리
+## Axios Interceptor 를 이용한 Token Refreshing 정리 
 
-### 1. setState 로 값을 변경한 경우
-자신의 컴포넌트가 리렌더링 됨
+### 1. 프로젝트 구성
+* front-end : axios-interceptor
+* back-end : delay-response-server
 
-### 2. 전달받은 props 값이 업데이트 된 경우
-정확한 테스트를 위해 React.memo 를 사용하여 props 변경 감지만 작동하도록 세팅하였음
+> 토큰 만료에 대한 Refreshing 처리가 주요 포인트이므로 토큰은 timestamp 로 대체하여 구현함
 
-### 3. 부모 컴포넌트가 렌더링되는 경우
-부모로부터 props 를 받지 않는 Sticker 컴포넌트를 만들어 테스트함
-
-<br>
-
-## 혼동되었던 부분  
-  
-리액트 컴포넌트 리렌더링 플로우와 *useEffect* 의 작동 플로우를 혼합해서 생각한 것이 혼동의 원인이었음
-
-사실 이 둘의 플로우는 별개임
-
-리액트 컴포넌트 리렌더링은 개발자의 영역이 아니라 리액트 라이브러리에서 자동으로 해주는 부분
-
-*useEffect* 는 개발자가 자신의 의도에 맞게 해당 컴포넌트의 렌더링 타이밍을 캐치하기 위하여 사용하는 구문임
-
-`리액트 컴포넌트 리렌더링`을 시냇물에 흐르는 송사리에 비유하자면 `useEffect`는 송사리를 뜰채로 건져올리는 행위에 비유할 수 있을 것 같음.
+### 2. 테스트 시나리오
+1. `첫 번째 Request` 발송
+2. Token 만료로 인한 서버 401(Unauthorized) 응답 수신
+3. `첫 번째 Request` 를 *addRefrshSubscriber* 함수로 *refreshSubscribers* 에 저장
+4. *isTokenRefreshing* 이 **false** 이므로 토큰 재발급 API 호출
+5. 서버의 토큰 재발급을 기다리는 동안 `두 번째 Request` 발송
+6. `두 번째 Request` 는 *refreshSubscribers* 에 추가되고, *isTokenRefreshing* 이 **true** 이므로 서버에 추가로 토큰 재발급 요청하지 않음
+7. 서버 재발급 토큰 응답 수신 후 *isTokenRefreshing* 은 **false** 로 세팅
+8. *onTokenRefreshed* 함수를 통해 재발급 받은 토큰으로 저장되있던 첫 번째와 두 번째 Request 를 순차발송처리
