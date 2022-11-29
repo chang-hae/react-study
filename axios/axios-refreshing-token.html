@@ -38,6 +38,7 @@
                     isTokenRefreshing = false;
                     onTokenRefreshed(Date.now() + 10000000);
                 }
+                
                 return retryOriginalRequest;
             }
             return Promise.reject(error);
