@@ -11,21 +11,6 @@ const getSecondsFromPrevTime = (prevTime, shouldRound) => {
     return 0;
 }
 
-const getTimeFromSeconds = (secs) => {
-    const totalSeconds = Math.ceil(secs);
-    const days = Math.floor(totalSeconds / (60 * 60 * 24));
-    const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
-    const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
-    const seconds = Math.floor(totalSeconds % 60);
-
-    return {
-        seconds,
-        minutes,
-        hours,
-        days,
-    };
-}
-
 const useCustomStopwatch = () => {
     const [prevTime, setPrevTime] = useState(new Date());
     const [seconds, setSeconds] = useState(0);
@@ -52,7 +37,7 @@ const useCustomStopwatch = () => {
         setSeconds(0)
     }
 
-    return {...getTimeFromSeconds(seconds), start, pause, reset, isRunning};
+    return {seconds, start, pause, reset, isRunning};
 }
 
 export default useCustomStopwatch;

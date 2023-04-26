@@ -1,23 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useCustomStopwatch from './hooks/useCustomStopwatch';
 
 const Stopwatch = () => {
-    const {
-        seconds,
-        minutes,
-        hours,
-        days,
-        isRunning,
-        start,
-        pause,
-        reset,
-    } = useCustomStopwatch();
-
+    const [expiry, setExpiry] = useState(300);
+    const {seconds, isRunning, start, pause, reset} = useCustomStopwatch();
 
     return (
         <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '100px' }}>
-                <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+                <span>{seconds} : {expiry - seconds}</span>
             </div>
             <p>{isRunning ? 'Running' : 'Not running'}</p>
             <button onClick={start}>Start</button>
