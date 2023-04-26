@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import Slider from '@mui/material/Slider';
 import useTimer from "./hooks/useTimer";
 
-function Timer() {
+function CustomTimer() {
+    console.log('Rendering Timer');
     const [restSeconds, setRestSeconds, isRunning, isFinish, start, end, reset] = useTimer(1);
 
     const handleSliderChange = (event, newMinute) => {
@@ -29,4 +30,4 @@ function Timer() {
     );
 }
 
-export default Timer;
+export default CustomTimer;
