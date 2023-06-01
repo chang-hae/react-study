@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Recipe({name, description, recipe}) {
+const Recipe = ({name, description, recipe}) => {
 
   return (
     <>
@@ -8,11 +8,11 @@ function Recipe({name, description, recipe}) {
       <h3>{description}</h3>
       {
         recipe.map((step, index) => {
-          return <p key={index}>{index + 1}. {step}</p>
+          return <p key={index}><del>{index + 1}. {step}</del></p>
         })
       }
     </>
   );
 }
 
-export default Recipe;
+export default React.memo(Recipe);
