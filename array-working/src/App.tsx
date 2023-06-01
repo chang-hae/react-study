@@ -47,6 +47,16 @@ function App() {
       displayItem.hour === hour ? {...displayItem, disabled: true} : displayItem))
   }
 
+  const resetDisplayHours = () => {
+    setDisplayHours(
+      displayHours.map((displayItem) => 
+      { return {...displayItem, disabled: false} }))
+  }
+
+  const resetSelectedHours = () => {
+    setSelectedHours([]);
+  }
+
   return (
     <>
       {
@@ -65,11 +75,8 @@ function App() {
       }
       <br />
       <button onClick={() => {
-        setDisplayHours(
-          displayHours.map((displayItem) => 
-          { return {...displayItem, disabled: false} }))
-
-        setSelectedHours([]);
+        resetDisplayHours();
+        resetSelectedHours();
       }}>reset</button>
     </>
   );
