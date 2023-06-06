@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      <RecipeTable alertTitle={alertTitle} />
+      <RecipeTable alertTitle={useCallbackAlertTitle} />
     </>
   );
 }

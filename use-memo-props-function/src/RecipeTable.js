@@ -49,4 +49,4 @@ function RecipeTable({ alertTitle }) {
   );
 }
 
-export default RecipeTable;
+export default React.memo(RecipeTable);
