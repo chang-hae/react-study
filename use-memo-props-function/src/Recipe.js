@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Recipe = ({name, description, recipe}) => {
-
   return (
     <>
       <h1>{name}</h1>
